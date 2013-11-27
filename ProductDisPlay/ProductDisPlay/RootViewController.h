@@ -45,6 +45,9 @@
     NSArray *buttonName;
     
     NSArray *subDataArr;//子类内容
+    NSMutableArray *courseLargeImgArr;
+    NSMutableArray *vipPackageImagArr;
+    NSMutableArray *pNameArr;
     
 }
 

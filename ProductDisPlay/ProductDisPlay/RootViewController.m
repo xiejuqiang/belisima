@@ -33,6 +33,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        courseLargeImgArr = [[NSMutableArray alloc] init];
+        vipPackageImagArr = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -57,20 +59,34 @@
 {
     recordDao = [[RecordDao alloc] init];
     [recordDao createDB:DATABASE_NAME];
-    NSMutableArray *pNameArr = [[NSMutableArray alloc] init];
+    pNameArr = [[NSMutableArray alloc] init];
     NSMutableArray *sNameArr = [[NSMutableArray alloc] init];
     NSMutableArray *subDicArr = [[NSMutableArray alloc] init];
     NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE parentId=%@ Order By sortOrder,catId",CATEGORY_TABLENAME,@"0"];
     pNameArr = [recordDao resultSetWhere:CATEGORY_TABLENAME Where:sqlStr];
-    for (NSDictionary *pDic in self.parentArr) {
+    
+    for (CategoryDBItem *pDic in pNameArr) {
         NSMutableArray *ssNameArr = [[NSMutableArray alloc] init];
          NSMutableArray *ssubDicArr = [[NSMutableArray alloc] init];
 //        NSString *pName = [pDic objectForKey:@"cname"];
-        NSString *pId = [pDic objectForKey:@"id"];
+        NSString *pId = pDic.catId;
 //        [pNameArr addObject:pName];
-        for (NSDictionary *sDic in self.childArr) {
-            NSString *sId = [sDic objectForKey:@"parentid"];
-            NSString *sName = [sDic objectForKey:@"cname"];
+        for (CategoryDBItem *sDic in self.childArr) {
+            
+            NSString *sId = sDic.parentId;
+            NSString *sName = sDic.catName;
+            
+            if ([sId isEqualToString:@"55"] || [sId isEqualToString:@"56"] || [sId isEqualToString:@"57"])
+            {
+                NSArray *largeArr = [sDic.content componentsSeparatedByString:@","];
+                [courseLargeImgArr addObject:largeArr];
+            }
+            
+            if ([sId isEqualToString:@"60"] || [sId isEqualToString:@"61"] || [sId isEqualToString:@"62"] || [sId isEqualToString:@"63"] || [sId isEqualToString:@"64"] || [sId isEqualToString:@"65"] || [sId isEqualToString:@"66"])
+            {
+                [vipPackageImagArr addObject:sDic];
+            }
+            
             if ([pId isEqualToString:sId]) {
                 [ssNameArr addObject:sName];
                 [ssubDicArr addObject:sDic];
@@ -84,6 +100,7 @@
 //    [pNameArr insertObject:@"首页" atIndex:0];
     
     buttonName = pNameArr;
+    [pNameArr retain];
     sumArray = sNameArr;
     subDataArr = subDicArr;
     NSLog(@"%@",self.parentArr);
@@ -360,7 +377,7 @@
                 {
                     bigLoveView = [[BigLoveView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
                     bigLoveView.backgroundColor = [UIColor whiteColor];
-                    bigLoveView.DataDic = [self.parentArr objectAtIndex:tempFlag_now-1];
+                    bigLoveView.DataDic = [pNameArr objectAtIndex:tempFlag_now-1];
                     [bigLoveView setLoveView:0];
                     [self.view addSubview:bigLoveView];
                     [self.view bringSubviewToFront:menuView];
@@ -372,7 +389,7 @@
                 {
                     heartView = [[HeartView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
                     heartView.backgroundColor = [UIColor whiteColor];
-                    heartView.dataDic = [self.parentArr objectAtIndex:tempFlag_now-1];
+                    heartView.dataDic = [pNameArr objectAtIndex:tempFlag_now-1];
                     [heartView expertIntro];
                     
                     [self.view addSubview:heartView];
@@ -386,7 +403,7 @@
                 {
                     contactUsView = [[ContactUsView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
                     contactUsView.backgroundColor = [UIColor whiteColor];
-                    contactUsView.dataDic = [self.parentArr objectAtIndex:tempFlag_now-1];
+                    contactUsView.dataDic = [pNameArr objectAtIndex:tempFlag_now-1];
                     [contactUsView setContactView:0];
                     [self.view addSubview:contactUsView];
                     [self.view bringSubviewToFront:menuView];
@@ -454,8 +471,8 @@
                 courseView.flag = tempFlag_now;
                 courseView.backgroundColor = [UIColor whiteColor];
                 courseView.DataArray = [subDataArr objectAtIndex:tempFlag_now-1];
-                courseView.largePicArray = childPicArr;
-                courseView.vip_package_array = vipPackageArr;
+                courseView.largePicArray = courseLargeImgArr;
+                courseView.vip_package_array = vipPackageImagArr;
                 [courseView setCourseView:i];
                 [self.view addSubview:courseView];
                 [contentViewArray addObject:courseView];

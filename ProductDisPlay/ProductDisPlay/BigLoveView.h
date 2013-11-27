@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
+@class CategoryDBItem;
 @interface BigLoveView : BaseView
 
-@property (nonatomic, retain)NSDictionary *DataDic;
+@property (nonatomic, retain)CategoryDBItem *DataDic;
 - (void)setLoveView:(int)num;
 @end

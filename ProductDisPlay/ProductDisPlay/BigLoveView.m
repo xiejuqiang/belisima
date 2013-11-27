@@ -9,6 +9,7 @@
 #import "BigLoveView.h"
 #import "Constant.h"
 #import "EGOImageView.h"
+#import "CategoryDBItem.h"
 @implementation BigLoveView
 @synthesize DataDic;
 
@@ -38,8 +39,8 @@
 {
     
     
-    NSDictionary *dicData = self.DataDic;
-    NSArray *urlArray = [dicData objectForKey:@"content"];
+    CategoryDBItem *dicData = self.DataDic;
+    NSArray *urlArray = [dicData.content componentsSeparatedByString:@","];
     NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[urlArray objectAtIndex:0]];
     EGOImageView *imgView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg.png"]];
     imgView.isUse = NO;

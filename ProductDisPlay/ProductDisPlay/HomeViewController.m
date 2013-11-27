@@ -42,6 +42,7 @@
     //网络获取数据
     jsonParser = [[JsonParser alloc]init];
     HUD = [[MBProgressHUD alloc] init];
+    childArr = [[NSMutableArray alloc] init];
     recordDB = [[RecordDao alloc]init];
     [recordDB createDB:DATABASE_NAME];
     imgArray = [[NSArray alloc]initWithObjects:@"home_vippackage",@"home_course",@"home_expert",@"home_culture",@"home_belisima",@"home_R&Dcenter",@"home_activities", nil];
@@ -61,6 +62,13 @@
 
 - (void)getData
 {
+    NSArray *resultData = [recordDB resultSet:CATEGORY_TABLENAME Order:nil LimitCount:0];
+    if ([resultData count]>0) {
+        [self createView];
+         NSString *sqlStr_child = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE parentId!=%@ Order By sortOrder,catId",CATEGORY_TABLENAME,@"0"];
+        childArr = [[recordDB resultSetWhere:CATEGORY_TABLENAME Where:sqlStr_child] retain];
+        return;
+    }
     [self showWithLoding];
     NSString *menuCategoryURL = [urlStr returnURL:1];
     [jsonParser parse:menuCategoryURL withDelegate:self onComplete:@selector(connectionScrollSuccess:) onErrorComplete:@selector(connectionError) onNullComplete:@selector(connectionNull)];
@@ -82,13 +90,38 @@
     int num =  [[subDic allKeys] count];
     
     for (int i = 1; i<=num; i++) {
+        NSString *imgStr_content = nil;
         NSString *str = [[NSString alloc] initWithFormat:@"%d",i];
         NSLog(@"%@",[subDic objectForKey:str]);
         NSDictionary *subbDic = [subDic objectForKey:str];
         [sumDataArr addObject:subbDic];
         NSString *parentid = [subbDic objectForKey:@"parentid"];
         
-        NSArray *categoryClosArray = [[NSArray alloc] initWithObjects:[subbDic objectForKey:@"id"],[subbDic objectForKey:@"cname"],[subbDic objectForKey:@"parentid"],[subbDic objectForKey:@"listorder"], [subbDic objectForKey:@"content"],nil];
+       
+        if ([[subbDic objectForKey:@"content"] isKindOfClass:[NSArray class]])
+        {
+            NSArray *imgArr = [subbDic objectForKey:@"content"];
+            for (int k =0 ; k<[imgArr count]; k++) {
+                NSString *imgStr = [imgArr objectAtIndex:k];
+                if (imgStr_content != nil)
+                {
+                    imgStr_content = [[NSString alloc ] initWithFormat:@"%@,%@",imgStr_content,imgStr];
+                }
+                else
+                {
+                    imgStr_content = [[NSString alloc ] initWithFormat:@"%@",imgStr];
+                }
+                
+                
+            }
+
+        }
+        else
+        {
+            imgStr_content = @"";
+        }
+               NSLog(@"%@",imgStr_content);
+        NSArray *categoryClosArray = [[NSArray alloc] initWithObjects:[subbDic objectForKey:@"id"],[subbDic objectForKey:@"cname"],[subbDic objectForKey:@"parentid"],[subbDic objectForKey:@"listorder"], imgStr_content,nil];
 //        NSArray *categoryClosArray = @[[subbDic objectForKey:@"id"],[subbDic objectForKey:@"cname"],[subbDic objectForKey:@"parentid"],[subbDic objectForKey:@"listorder"]];
         [recordDB insertAtTable:CATEGORY_TABLENAME Clos:categoryClosArray];
         

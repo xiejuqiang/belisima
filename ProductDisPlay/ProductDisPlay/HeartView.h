@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
+@class CategoryDBItem;
 @interface HeartView : BaseView
 
-@property (nonatomic,retain)NSDictionary *dataDic;
+@property (nonatomic,retain)CategoryDBItem *dataDic;
 - (void)expertIntro;
 
 

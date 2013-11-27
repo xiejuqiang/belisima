@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
+@class CategoryDBItem;
 @interface ContactUsView : BaseView
 
-@property (nonatomic,retain)NSDictionary *dataDic;
+@property (nonatomic,retain)CategoryDBItem *dataDic;
 - (void)setContactView:(int)num;
 
 

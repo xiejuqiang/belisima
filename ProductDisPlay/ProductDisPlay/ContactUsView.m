@@ -9,6 +9,7 @@
 #import "ContactUsView.h"
 #import "EGOImageView.h"
 #import "Constant.h"
+#import "CategoryDBItem.h"
 @implementation ContactUsView
 @synthesize dataDic;
 - (id)initWithFrame:(CGRect)frame
@@ -38,8 +39,8 @@
 
 - (void)contact1
 {
-    NSDictionary *dic = self.dataDic;
-    NSArray *contentArr = [dic objectForKey:@"content"];
+    CategoryDBItem *dic = self.dataDic;
+    NSArray *contentArr = [dic.content componentsSeparatedByString:@","];
     NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:0]];
     EGOImageView *imgView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg.png"]];
     imgView.isUse = NO;

@@ -10,6 +10,7 @@
 #import "EGOImageView.h"
 #import "EMAsyncImageView.h"
 #import "Constant.h"
+#import "CategoryDBItem.h"
 @implementation ContentView
 @synthesize DataArray;
 
@@ -38,7 +39,9 @@
             break;
         case 1:
         {
-            urlStrArray = [dicData objectForKey:@"content"];
+            
+            urlStrArray = [[dicData.content componentsSeparatedByString:@","] retain];
+            
             [self createTheClubPic:[urlStrArray count]];
         }
             break;
@@ -53,7 +56,8 @@
 {
     EGOImageView *imagView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg.png"]];
    
-    NSArray *urlArray = [dicData objectForKey:@"content"];
+    NSLog(@"%@",dicData.content);
+    NSArray *urlArray = [dicData.content componentsSeparatedByString:@","];
     NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[urlArray objectAtIndex:0]];
     imgView.isUse = NO;
     imagView.userInteractionEnabled = YES;

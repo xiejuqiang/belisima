@@ -10,6 +10,7 @@
 #import "BaseView.h"
 @class EGOImageView;
 @class EMAsyncImageView;
+@class CategoryDBItem;
 @interface ContentView : BaseView<UIGestureRecognizerDelegate,UIScrollViewDelegate>
 {
     UIScrollView *mScrollView;
@@ -17,7 +18,7 @@
     UIView *thumbView;
     UIImageView *bigPicView;
     EMAsyncImageView *EMAImageView;
-    NSDictionary *dicData;
+    CategoryDBItem *dicData;
     NSArray *urlStrArray;
     EGOImageView *imgView;
 }

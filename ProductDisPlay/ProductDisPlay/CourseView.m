@@ -10,6 +10,7 @@
 #import "Constant.h"
 #import "EMAsyncImageView.h"
 #import "EGOImageView.h"
+#import "CategoryDBItem.h"
 @implementation CourseView
 @synthesize flag;
 @synthesize DataArray;
@@ -77,7 +78,7 @@
         mScrollView.contentSize = CGSizeMake(1024*2, 768);
         [self addSubview:mScrollView];
 
-        NSArray *contentArr = [dicData objectForKey:@"content"];
+        NSArray *contentArr = [dicData.content componentsSeparatedByString:@","];
         NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:1]];
         NSString *urlStr1 = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:0]];
         EGOImageView *imageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg"]];
@@ -94,7 +95,7 @@
         [mScrollView addSubview:imageView];
         [mScrollView addSubview:imageView1];
         
-        NSArray *large_img = [largePicArray objectAtIndex:0];
+        NSArray *large_img = [[largePicArray objectAtIndex:0] retain];
         
         for (int i = 0; i < [large_img count]; i++) {
             UIButton *button = [[UIButton alloc] init];
@@ -133,7 +134,7 @@
         [self addSubview:imgBG];
         EGOImageView *imgView1 = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg.png"]];
         imgView1.isUse = YES;
-        NSArray *contentArr = [dicData objectForKey:@"content"];
+        NSArray *contentArr = [dicData.content componentsSeparatedByString:@","];
         NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:0]];
         imgView1.imageURL = [[NSURL alloc] initWithString:urlStr];
         imgView1.frame = CGRectMake((1024 -imgView1.image.size.width)/2.0 , 0, imgView1.image.size.width, imgView1.image.size.height);
@@ -226,10 +227,10 @@
             case 1:
             {
                 NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-                for (NSDictionary *dic in vip_package_array) {
-                    if ([[dic objectForKey:@"parentid"] isEqualToString:@"61"]) {
+                for (CategoryDBItem *dic in vip_package_array) {
+                    if ([dic.parentId isEqualToString:@"61"]) {
                        
-                        [imgArray addObject:[dic objectForKey:@"content"]];
+                        [imgArray addObject:[dic.content componentsSeparatedByString:@","]];
                         
                     
                     }
@@ -250,9 +251,9 @@
             {
                 Flag = btn.tag - 200;
                 NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-                for (NSDictionary *dic in vip_package_array) {
-                    if ([[dic objectForKey:@"parentid"] isEqualToString:@"60"]) {
-                        [imgArray addObject:[dic objectForKey:@"content"]];
+                for (CategoryDBItem *dic in vip_package_array) {
+                    if ([dic.parentId isEqualToString:@"60"]) {
+                        [imgArray addObject:[dic.content componentsSeparatedByString:@","]];
                     }
                 }
                 NSString *imgUrl = @"";
@@ -273,9 +274,9 @@
                 Flag = btn.tag - 300;
                 
                 NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-                for (NSDictionary *dic in vip_package_array) {
-                    if ([[dic objectForKey:@"parentid"] isEqualToString:@"62"]) {
-                        [imgArray addObject:[dic objectForKey:@"content"]];
+                for (CategoryDBItem *dic in vip_package_array) {
+                    if ([dic.parentId isEqualToString:@"62"]) {
+                        [imgArray addObject:[dic.content componentsSeparatedByString:@","]];
                     }
                 }
                 NSString *imgUrl = @"";
@@ -296,9 +297,9 @@
                 Flag = btn.tag - 400;
                 
                 NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-                for (NSDictionary *dic in vip_package_array) {
-                    if ([[dic objectForKey:@"parentid"] isEqualToString:@"63"]) {
-                        [imgArray addObject:[dic objectForKey:@"content"]];
+                for (CategoryDBItem *dic in vip_package_array) {
+                    if ([dic.parentId isEqualToString:@"63"]) {
+                        [imgArray addObject:[dic.content componentsSeparatedByString:@","]];
                     }
                 }
                 NSString *imgUrl = @"";
@@ -320,9 +321,9 @@
                 Flag = btn.tag - 500;
                 
                 NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-                for (NSDictionary *dic in vip_package_array) {
-                    if ([[dic objectForKey:@"parentid"] isEqualToString:@"64"]) {
-                        [imgArray addObject:[dic objectForKey:@"content"]];
+                for (CategoryDBItem *dic in vip_package_array) {
+                    if ([dic.parentId isEqualToString:@"64"]) {
+                        [imgArray addObject:[dic.content componentsSeparatedByString:@","]];
                     }
                 }
                 NSString *imgUrl = @"";
@@ -342,9 +343,9 @@
                 Flag = btn.tag - 600;
                 
                 NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-                for (NSDictionary *dic in vip_package_array) {
-                    if ([[dic objectForKey:@"parentid"] isEqualToString:@"65"]) {
-                        [imgArray addObject:[dic objectForKey:@"content"]];
+                for (CategoryDBItem *dic in vip_package_array) {
+                    if ([dic.parentId isEqualToString:@"65"]) {
+                        [imgArray addObject:[dic.content componentsSeparatedByString:@","]];
                     }
                 }
                 NSString *imgUrl = @"";
@@ -365,9 +366,9 @@
             {
                 Flag = btn.tag - 700;
                 NSMutableArray *imgArray = [[NSMutableArray alloc] init];
-                for (NSDictionary *dic in vip_package_array) {
-                    if ([[dic objectForKey:@"parentid"] isEqualToString:@"66"]) {
-                        [imgArray addObject:[dic objectForKey:@"content"]];
+                for (CategoryDBItem *dic in vip_package_array) {
+                    if ([dic.parentId isEqualToString:@"66"]) {
+                        [imgArray addObject:[dic.content componentsSeparatedByString:@","]];
                     }
                 }
                 NSString *imgUrl = @"";
@@ -461,7 +462,7 @@
 //        imgView.imageUrl = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,urlStr];
 //        [self addSubview:imgView];
         
-        NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[[dicData objectForKey:@"content"] objectAtIndex:0]];
+        NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[[dicData.content componentsSeparatedByString:@","] objectAtIndex:0]];
         EGOImageView *imgView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg"]];
         imgView.isUse = NO;
         imgView.imageURL = [[NSURL alloc] initWithString:urlStr];
@@ -497,7 +498,7 @@
         
         EGOImageView *imgView1 = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg"]];
 
-        NSArray *contentArr = [dicData objectForKey:@"content"];
+        NSArray *contentArr = [dicData.content componentsSeparatedByString:@","];
         NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:0]];
         imgView1.imageURL = [[NSURL alloc] initWithString:urlStr];
         imgView1.frame = CGRectMake((1024 -imgView1.image.size.width)/2.0, 0, imgView1.image.size.width, imgView1.image.size.height);
@@ -532,7 +533,7 @@
     if (self.flag == 2)
     {
         
-        NSString *imgStr = [[dicData objectForKey:@"content"] objectAtIndex:0];
+        NSString *imgStr = [[dicData.content componentsSeparatedByString:@","] objectAtIndex:0];
         NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,imgStr];
 //        EMAsyncImageView *imgView = [[EMAsyncImageView alloc] initWithFrame:self.frame];
 //        imgView.imgIndex = [dicData objectForKey:@"id"];
@@ -575,7 +576,7 @@
         EGOImageView *imgView1 = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg.png"]];
         imgView1.viewFlage = self;
         imgView1.isUse = YES;
-        NSArray *contentArr = [dicData objectForKey:@"content"];
+        NSArray *contentArr = [dicData.content componentsSeparatedByString:@","];
         NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:0]];
         imgView1.imageURL = [[NSURL alloc] initWithString:urlStr];
         imgView1.frame = CGRectMake((1024 -imgView1.image.size.width)/2.0, 0, imgView1.image.size.width, imgView1.image.size.height);

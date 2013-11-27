@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
 @class EGOImageView;
+@class CategoryDBItem;
 @interface CourseView : BaseView<UIGestureRecognizerDelegate>
 {
     NSArray *course1StrArr;
@@ -19,7 +20,7 @@
     NSArray *buttonArr2;
     UIView *thumbView;
     EGOImageView *bigPicView;
-    NSDictionary *dicData;
+    CategoryDBItem *dicData;
     EMAsyncImageView *EMAImageView1;
     EMAsyncImageView *EMAImageView2;
     
