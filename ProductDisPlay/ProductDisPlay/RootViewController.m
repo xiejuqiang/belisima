@@ -16,6 +16,7 @@
 #import "MemberView.h"
 #import "RecordDao.h"
 #import "CategoryDBItem.h"
+#import "EGOImageLoader.h"
 
 
 @interface RootViewController ()
@@ -217,7 +218,65 @@
     logoImageView.frame = CGRectMake(10, 20, logoImageView.image.size.width, logoImageView.image.size.height);
     [menuView addSubview:logoImageView];
     [logoImageView release];
+    
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, logoImageView.image.size.height+20+10, 158, 50)];
+    [clearButton setTitle:@"清空缓存" forState:UIControlStateNormal];
+    [clearButton addTarget:self action:@selector(cleanUp) forControlEvents:UIControlEventTouchUpInside];
+    [menuView addSubview:clearButton];
+}
 
+//清空缓存
+- (void)cleanUp
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"缓存提示"
+                                                 message:@"你是否要清除缓存？"
+                                                delegate:self
+                                       cancelButtonTitle:@"确定"
+                                       otherButtonTitles:@"取消",nil];
+    [alert show];
+}
+
+//警告框delegate
+- (void) alertView:(UIAlertView *) inAlertView clickedButtonAtIndex:(NSInteger) buttonIndex
+{
+	//看是哪个调用这个
+	//缓存
+
+		//确定
+		if(buttonIndex==0)
+		{
+            [self showWithTime:@"清除中..."];
+            [[EGOImageLoader sharedImageLoader] clearAllCache];
+            //删除数据库数据
+            [self performSelector:@selector(showCache) withObject:nil afterDelay:0.5];
+		}
+	
+
+}
+
+- (void)showWithTime:(NSString *)lable
+{
+    [HUD hide:YES];
+    HUD = [[MBProgressHUD alloc]initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    HUD.labelText = lable;
+    [HUD showWhileExecutingT:@selector(myTaskT) onTarget:self withObject:nil animated:YES];
+}
+-(void)showCache
+{
+    [HUD hide:YES];
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	[self.view addSubview:HUD];
+	
+	HUD.delegate = self;
+	HUD.labelText = @"清除缓存成功";
+	
+	[HUD showWhileExecutingT:@selector(myTaskT) onTarget:self withObject:nil animated:YES];
+}
+
+- (void)myTaskT {
+	sleep(1);
 }
 
 - (void)createMenuButton:(int)num

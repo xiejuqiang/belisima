@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 @class ContentView;
 @class CourseView;
 @class BigLoveView;
@@ -14,7 +15,7 @@
 @class ContactUsView;
 @class MemberView;
 @class RecordDao;
-@interface RootViewController : UIViewController<UIScrollViewDelegate>
+@interface RootViewController : UIViewController<UIScrollViewDelegate,UIAlertViewDelegate,MBProgressHUDDelegate>
 {
     UIScrollView *mScrollView;//首页scroll
     UIScrollView *menuScrollView;
@@ -41,6 +42,7 @@
     ContactUsView *contactUsView;
     MemberView *memberView;
     RecordDao *recordDao;
+    MBProgressHUD *HUD;
 
     NSArray *buttonName;
     

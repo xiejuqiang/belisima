@@ -121,36 +121,38 @@
     else
     {
         
-        NSArray *buttonFrameArr = [[NSArray alloc]initWithObjects:[NSValue valueWithCGRect:CGRectMake(240, 102.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 153.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 203.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 253.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 303.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 353.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 403.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 453.5, 697.5, 49)],
-                                   [NSValue valueWithCGRect:CGRectMake(240, 503.5, 697.5, 49)],nil];
+        NSArray *buttonFrameArr = [[NSArray alloc]initWithObjects:[NSValue valueWithCGRect:CGRectMake(240, 102.5+51, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*2, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*3, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*4, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*5, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*6, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*7, 697.5, 76)],
+                                   [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*8, 697.5, 76)],nil];
         UIImageView *imgBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_bg.png"]];
         [self addSubview:imgBG];
+        UIScrollView *myScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        myScrollView.backgroundColor = [UIColor clearColor];
+        [self addSubview:myScrollView];
         EGOImageView *imgView1 = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg.png"]];
         imgView1.isUse = YES;
         NSArray *contentArr = [dicData.content componentsSeparatedByString:@","];
         NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:0]];
         imgView1.imageURL = [[NSURL alloc] initWithString:urlStr];
         imgView1.frame = CGRectMake((1024 -imgView1.image.size.width)/2.0 , 0, imgView1.image.size.width, imgView1.image.size.height);
-        [self addSubview:imgView1];
+        [myScrollView addSubview:imgView1];
+        [myScrollView setContentSize:CGSizeMake(1024, imgView1.frame.size.height)];
         imgView1.userInteractionEnabled = YES;
         [imgView1 release];
+        
         
         for (int i = 0; i< 9; i++) {
             UIButton *button = [[UIButton alloc] init];
             button.frame = [[buttonFrameArr objectAtIndex:i] CGRectValue];
             button.tag = 100+i;
-//            if (i != 0 && i != 1 && i != 6 && i != 7 && i != 8 && i != 10) {
-//                button.enabled = NO;
-//            }
             [button addTarget:self action:@selector(pressButton:) forControlEvents:UIControlEventTouchUpInside];
-            [self addSubview:button];
+            [myScrollView addSubview:button];
             [button release];
             
         }
@@ -159,6 +161,7 @@
         [imgView1 addGestureRecognizer:tap];
         [tap release];
         [buttonFrameArr release];
+        [myScrollView release];
         
     }
     
@@ -480,21 +483,25 @@
     }
     else
     {
-        NSArray *buttonFrameArr = [[NSArray alloc]initWithObjects:[NSValue valueWithCGRect:CGRectMake(240, 102.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 153.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 203.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 253.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 303.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 353.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 403.5, 697.5, 69)],
-         [NSValue valueWithCGRect:CGRectMake(240, 473.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 523.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 573.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 623.5, 697.5, 49)],
-         [NSValue valueWithCGRect:CGRectMake(240, 673.5, 697.5, 49)],nil];
+        NSArray *buttonFrameArr = [[NSArray alloc]initWithObjects:[NSValue valueWithCGRect:CGRectMake(240, 102.5+51, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*2, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*3, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*4, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*5, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*6, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*7, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*8, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*9, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*10, 697.5, 76)],
+         [NSValue valueWithCGRect:CGRectMake(240, 102.5+51+76*11, 697.5, 76)],nil];
         
         UIImageView *imgBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_bg.png"]];
         [self addSubview:imgBG];
+        
+        UIScrollView *myScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        myScrollView.backgroundColor = [UIColor clearColor];
+        [self addSubview:myScrollView];
         
         EGOImageView *imgView1 = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"home_bg"]];
 
@@ -502,7 +509,8 @@
         NSString *urlStr = [[NSString alloc] initWithFormat:@"%@%@",Default_URL,[contentArr objectAtIndex:0]];
         imgView1.imageURL = [[NSURL alloc] initWithString:urlStr];
         imgView1.frame = CGRectMake((1024 -imgView1.image.size.width)/2.0, 0, imgView1.image.size.width, imgView1.image.size.height);
-        [self addSubview:imgView1];
+        [myScrollView addSubview:imgView1];
+        [myScrollView setContentSize:CGSizeMake(1024, imgView1.frame.size.height)];
         imgView1.userInteractionEnabled = YES;
         [imgView1 release];
         
@@ -510,11 +518,8 @@
             UIButton *button = [[UIButton alloc] init];
             button.frame = [[buttonFrameArr objectAtIndex:i] CGRectValue];
             button.tag = 200+i;
-//            if (i != 0 && i != 1 && i != 2 && i != 7) {
-//                button.enabled = NO;
-//            }
             [button addTarget:self action:@selector(pressButton:) forControlEvents:UIControlEventTouchUpInside];
-            [self addSubview:button];
+            [myScrollView addSubview:button];
             [button release];
             
         }
@@ -523,6 +528,7 @@
         [imgView1 addGestureRecognizer:tap];
         [tap release];
         [buttonFrameArr release];
+        [myScrollView release];
     }
     
     
@@ -586,12 +592,9 @@
         
         switch (index) {
             case 2:
-                for (int i = 0; i< 15; i++) {
+                for (int i = 0; i< 18; i++) {
                     UIButton *button = [[UIButton alloc] init];
-                    button.frame = CGRectMake(240, 102.5+50*i, 697.5, 49);
-                    if (i>7) {
-                        button.frame = CGRectMake(240, 122.5+50*i, 697.5, 49);
-                    }
+                    button.frame = CGRectMake(240, 102.5+51+77*i, 697.5, 76);
                     button.tag = 300+i;
 //                    if (i == 3 || i == 4 || i == 5 || i == 6 || i == 8 || i == 9) {
 //                        button.enabled = NO;
@@ -605,10 +608,7 @@
             case 3:
                 for (int i = 0; i< 21; i++) {
                     UIButton *button = [[UIButton alloc] init];
-                    button.frame = CGRectMake(240, 102.5+50*i, 697.5, 49);
-                    if (i>7) {
-                        button.frame = CGRectMake(240, 122.5+50*i, 697.5, 49);
-                    }
+                    button.frame = CGRectMake(240, 102.5+51+77*i, 697.5, 76);
                     button.tag = 400+i;
 //                    if (i == 3 || i == 4 || i == 5 || i == 6 || i == 8 || i == 10 || i == 11 || i == 13 || i == 18 || i == 20) {
 //                        button.enabled = NO;
@@ -622,10 +622,7 @@
             case 4:
                 for (int i = 0; i< 24; i++) {
                     UIButton *button = [[UIButton alloc] init];
-                    button.frame = CGRectMake(240, 102.5+50*i, 697.5, 49);
-                    if (i>7) {
-                        button.frame = CGRectMake(240, 122.5+50*i, 697.5, 49);
-                    }
+                    button.frame = CGRectMake(240, 102.5+51+77*i, 697.5, 76);
                     button.tag = 500+i;
 //                    if (i == 3 || i == 4 || i == 5 || i == 6 || i == 8 || i == 11 || i == 19 || i == 21 || i == 22) {
 //                        button.enabled = NO;
@@ -639,10 +636,7 @@
             case 5:
                 for (int i = 0; i< 25; i++) {
                     UIButton *button = [[UIButton alloc] init];
-                    button.frame = CGRectMake(240, 102.5+50*i, 697.5, 49);
-                    if (i>7) {
-                        button.frame = CGRectMake(240, 122.5+50*i, 697.5, 49);
-                    }
+                    button.frame = CGRectMake(240, 102.5+51+77*i, 697.5, 76);
                     
 //                    if (i != 0 && i != 1 && i != 2 && i != 7 && i != 9 && i != 12 && i != 15 && i != 17 && i != 18 && i != 24) {
 //                        button.enabled = NO;
@@ -657,12 +651,9 @@
                 break;
                 
             case 6:
-                for (int i = 0; i< 28; i++) {
+                for (int i = 0; i< 27; i++) {
                     UIButton *button = [[UIButton alloc] init];
-                    button.frame = CGRectMake(240, 102.5+50*i, 697.5, 49);
-                    if (i>7) {
-                        button.frame = CGRectMake(240, 122.5+50*i, 697.5, 49);
-                    }
+                    button.frame = CGRectMake(240, 102.5+51+77*i, 697.5, 76);
                     button.tag = 700+i;
 //                    if (i != 0 && i != 1 && i != 2 && i != 7 && i != 9 && i != 12 && i != 15 && i != 17 && i != 18 && i != 24 && i != 26 && i != 27 ) {
 //                        button.enabled = NO;

@@ -152,7 +152,7 @@
 //    parentArr = [recordDB resultSetWhere:CATEGORY_TABLENAME Where:selectSql];
     
     NSLog(@"%@",parentArr);
-    [self createView];
+    [self getData];
     [HUD hide:YES];
 }
 
